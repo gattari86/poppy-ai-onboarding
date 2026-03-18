@@ -335,20 +335,21 @@
     margin-top: 10px;
   }
 
-  .pricing-card.popular::before {
-    content: "Most Popular";
-    position: absolute;
-    top: -11px;
-    left: 50%;
-    transform: translateX(-50%);
+  .pricing-card.popular {
+    border-color: var(--purple);
+  }
+
+  .popular-badge {
+    display: inline-block;
     background: var(--purple);
     color: #fff;
     font-size: 11px;
     font-weight: 600;
-    padding: 2px 12px;
-    border-radius: 10px;
+    padding: 3px 10px;
+    border-radius: 4px;
     font-family: 'Poppins', sans-serif;
     letter-spacing: 0.3px;
+    margin-bottom: 6px;
   }
 
   .setup-fee-note {
@@ -415,6 +416,7 @@
 
         <label class="pricing-card popular">
           <input type="radio" name="selected_plan" value="growth">
+          <div class="popular-badge">Most Popular</div>
           <div class="plan-name">Growth</div>
           <div class="plan-price">$350 <span>/mo</span></div>
           <div class="plan-includes">
