@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Receptionist Setup | Poppy Marketing & Consulting</title>
+<style>
+  :root {
+    --ivory: #F6F4EF;
+    --charcoal: #1F1F1F;
+    --purple: #6B4EFF;
+    --purple-light: #8B73FF;
+    --purple-bg: #F3F0FF;
+    --gray-100: #F7F7F5;
+    --gray-200: #E8E6E1;
+    --gray-400: #A8A5A0;
+    --gray-600: #6B6966;
+    --red: #D94F4F;
+    --green: #2D8A56;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Raleway', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--ivory);
+    color: var(--charcoal);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .header {
+    background: var(--charcoal);
+    padding: 32px 24px;
+    text-align: center;
+  }
+
+  .header h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .header p {
+    color: var(--gray-400);
+    font-size: 15px;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+
+  .intro {
+    background: var(--purple-bg);
+    border-left: 4px solid var(--purple);
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 32px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .intro strong { color: var(--purple); }
+
+  .section {
+    margin-bottom: 36px;
+  }
+
+  .section-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-number {
+    background: var(--purple);
+    color: #fff;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .section-desc {
+    font-size: 13px;
+    color: var(--gray-600);
+    margin-bottom: 16px;
+    margin-left: 38px;
+  }
+
+  .field {
+    margin-bottom: 18px;
+  }
+
+  .field label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+
+  .field label .optional {
+    font-weight: 400;
+    color: var(--gray-400);
+    font-size: 12px;
+  }
+
+  .field label .why {
+    font-weight: 400;
+    color: var(--gray-600);
+    font-size: 12px;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .field input[type="text"],
+  .field input[type="email"],
+  .field input[type="tel"],
+  .field input[type="url"],
+  .field select,
+  .field textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--gray-200);
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: inherit;
+    background: #fff;
+    color: var(--charcoal);
+    transition: border-color 0.2s;
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--purple);
+  }
+
+  .field textarea {
+    min-height: 80px;
+    resize: vertical;
+  }
+
+  .field select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B6966' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+  }
+
+  .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .checkbox-group label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-weight: 400;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .checkbox-group input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--purple);
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  .row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .secure-note {
+    background: var(--gray-100);
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 13px;
+    color: var(--gray-600);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .secure-note svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--gray-200);
+    margin: 36px 0;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--purple);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .submit-btn:hover {
+    background: var(--purple-light);
+  }
+
+  .submit-note {
+    text-align: center;
+    font-size: 13px;
+    color: var(--gray-600);
+    margin-top: 12px;
+  }
+
+  #thank-you {
+    display: none;
+    text-align: center;
+    padding: 80px 24px;
+  }
+
+  #thank-you h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px;
+    margin-bottom: 12px;
+    color: var(--green);
+  }
+
+  #thank-you p {
+    font-size: 16px;
+    color: var(--gray-600);
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  /* Pricing cards */
+  .pricing-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .pricing-card {
+    border: 2px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 20px 16px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+    background: #fff;
+  }
+
+  .pricing-card:hover {
+    border-color: var(--purple-light);
+  }
+
+  .pricing-card.selected {
+    border-color: var(--purple);
+    background: var(--purple-bg);
+  }
+
+  .pricing-card input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .pricing-card .plan-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .pricing-card .plan-price {
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--purple);
+    margin-bottom: 2px;
+  }
+
+  .pricing-card .plan-price span {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--gray-600);
+  }
+
+  .pricing-card .plan-includes {
+    font-size: 13px;
+    color: var(--gray-600);
+    line-height: 1.6;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--gray-200);
+  }
+
+  .pricing-card .plan-best {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--purple);
+    margin-top: 10px;
+  }
+
+  .pricing-card.popular::before {
+    content: "Most Popular";
+    position: absolute;
+    top: -11px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--purple);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 12px;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.3px;
+  }
+
+  .setup-fee-note {
+    font-size: 13px;
+    color: var(--gray-600);
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .custom-note {
+    font-size: 13px;
+    color: var(--gray-600);
+    text-align: center;
+    margin-top: 0;
+  }
+
+  @media (max-width: 520px) {
+    .row-2 { grid-template-columns: 1fr; }
+    .header h1 { font-size: 20px; }
+    .container { padding: 24px 16px 48px; }
+    .pricing-cards { grid-template-columns: 1fr; }
+  }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="header">
+  <h1>Poppy AI Receptionist -- Setup Form</h1>
+  <p>Complete this form so we can build and configure your AI receptionist. Everything here helps us customize the system to your business.</p>
+</div>
+
+<div class="container">
+
+  <div class="intro">
+    <strong>Why we need this information:</strong> Your AI receptionist is built custom to your business -- your hours, your services, your call flow, and your booking system. This form collects everything we need to set it up, register your phone number for texting, and get you live as quickly as possible.
+  </div>
+
+  <form id="onboarding-form" action="https://formspree.io/f/mnjgokvl" method="POST">
+
+    <!-- Section: Select Your Plan -->
+    <div class="section">
+      <div class="section-title">
+        <span class="section-number" style="background: var(--charcoal);">$</span>
+        Select Your Plan
+      </div>
+      <p class="section-desc">All plans include custom setup, bilingual support (English + Spanish), lead capture, booking integration, and text confirmations.</p>
+
+      <p class="setup-fee-note">One-time custom setup fee: <strong>$500</strong> (all plans)</p>
+
+      <div class="pricing-cards">
+        <label class="pricing-card">
+          <input type="radio" name="selected_plan" value="starter" required>
+          <div class="plan-name">Starter</div>
+          <div class="plan-price">$150 <span>/mo</span></div>
+          <div class="plan-includes">
+            Up to 100 calls/mo<br>
+            Up to 100 texts/mo<br>
+            1 calendar integration<br>
+            Monthly summary report
+          </div>
+          <div class="plan-best">Solo operators, low volume</div>
+        </label>
+
+        <label class="pricing-card popular">
+          <input type="radio" name="selected_plan" value="growth">
+          <div class="plan-name">Growth</div>
+          <div class="plan-price">$350 <span>/mo</span></div>
+          <div class="plan-includes">
+            Up to 300 calls/mo<br>
+            Up to 300 texts/mo<br>
+            1 calendar integration<br>
+            Detailed monthly report
+          </div>
+          <div class="plan-best">Clinics, salons, service businesses</div>
+        </label>
+
+        <label class="pricing-card">
+          <input type="radio" name="selected_plan" value="professional">
+          <div class="plan-name">Professional</div>
+          <div class="plan-price">$650 <span>/mo</span></div>
+          <div class="plan-includes">
+            Up to 500 calls/mo<br>
+            Up to 500 texts/mo<br>
+            Up to 3 calendar integrations<br>
+            Monthly report + strategy call
+          </div>
+          <div class="plan-best">High volume, multi-location</div>
+        </label>
+      </div>
+
+      <p class="custom-note">Need more than 500 calls/month or a custom setup? <a href="tel:+19417774933" style="color: var(--purple);">Call us</a> to discuss a custom plan.</p>
+    </div>
+
+    <!-- Section 1: Business Information -->
+    <div class="section">
+      <div class="section-title">
+        <span class="section-number">1</span>
+        Business Information
+      </div>
+      <p class="section-desc">Legal and public-facing details about your business.</p>
+
+      <div class="field">
+        <label>Business legal name <span class="why">As registered with your state or IRS</span></label>
+        <input type="text" name="business_legal_name" required placeholder="Example: Smith Dental Group LLC">
+      </div>
+
+      <div class="field">
+        <label>Business public name <span class="optional">(if different from legal name)</span></label>
+        <input type="text" name="business_public_name" placeholder="Example: Smith Family Dental">
+      </div>
+
+      <div class="field">
+        <label>Business phone number <span class="why">The main number your customers call</span></label>
+        <input type="tel" name="business_phone" required placeholder="(555) 123-4567">
+      </div>
+
+      <div class="field">
+        <label>Business email</label>
+        <input type="email" name="business_email" required placeholder="info@yourbusiness.com">
+      </div>
+
+      <div class="field">
+        <label>Business website URL</label>
+        <input type="url" name="business_website" required placeholder="https://www.yourbusiness.com">
+      </div>
+
+      <div class="field">
+        <label>Business address</label>
+        <input type="text" name="business_address" required placeholder="123 Main St, Suite 100, City, State, ZIP">
+      </div>
+
+      <div class="secure-note">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1C4.7 1 2 3.7 2 7v2.5C2 12 3.5 13.5 6 13.5h4c2.5 0 4-1.5 4-4V7c0-3.3-2.7-6-6-6zm0 9a1.5 1.5 0 110-3 1.5 1.5 0 010 3z" fill="#6B6966"/></svg>
+        <div>
+          <strong>EIN / Tax ID</strong> -- This is required for registering your phone number for text messaging (A2P 10DLC compliance). It is stored securely and only used for carrier registration.
+        </div>
+      </div>
+
+      <div class="field">
+        <label>EIN / Tax ID number</label>
+        <input type="text" name="ein" required placeholder="XX-XXXXXXX">
+      </div>
+
+      <div class="field">
+        <label>Business entity type</label>
+        <select name="business_type" required>
+          <option value="" disabled selected>Select one</option>
+          <option value="LLC">LLC</option>
+          <option value="Corporation">Corporation</option>
+          <option value="Sole Proprietor">Sole Proprietor</option>
+          <option value="Partnership">Partnership</option>
+          <option value="Nonprofit">Nonprofit</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Section 2: Contact Person -->
+    <div class="section">
+      <div class="section-title">
+        <span class="section-number">2</span>
+        Your Contact Information
+      </div>
+      <p class="section-desc">Who should we work with during setup?</p>
+
+      <div class="row-2">
+        <div class="field">
+          <label>Your full name</label>
+          <input type="text" name="contact_name" required placeholder="First Last">
+        </div>
+        <div class="field">
+          <label>Your role</label>
+          <input type="text" name="contact_role" placeholder="Owner, Manager, etc.">
+        </div>
+      </div>
+
+      <div class="row-2">
+        <div class="field">
+          <label>Best phone to reach you</label>
+          <input type="tel" name="contact_phone" required placeholder="(555) 123-4567">
+        </div>
+        <div class="field">
+          <label>Best email to reach you</label>
+          <input type="email" name="contact_email" required placeholder="you@email.com">
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Service Setup -->
+    <div class="section">
+      <div class="section-title">
+        <span class="section-number">3</span>
+        How You'll Use the AI Receptionist
+      </div>
+      <p class="section-desc">This helps us configure the right call flow for your business.</p>
+
+      <div class="field">
+        <label>What should the AI receptionist handle?</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="use_case" value="after-hours"> After-hours calls (when you're closed)</label>
+          <label><input type="checkbox" name="use_case" value="missed-call"> Missed-call coverage (when you're busy)</label>
+          <label><input type="checkbox" name="use_case" value="full-time"> Full-time receptionist support</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>What are your business hours?</label>
+        <textarea name="business_hours" required placeholder="Example: Monday-Friday 9 AM - 5 PM, Saturday 10 AM - 2 PM, closed Sunday"></textarea>
+      </div>
+
+      <div class="field">
+        <label>What services does your business offer? <span class="why">A brief description -- the AI will use this to answer caller questions</span></label>
+        <textarea name="services_description" required placeholder="Example: General dentistry, cleanings, cosmetic work, emergency dental. We accept most insurance plans."></textarea>
+      </div>
+
+      <div class="field">
+        <label>Do you need bilingual support (English + Spanish)?</label>
+        <select name="bilingual" required>
+          <option value="" disabled selected>Select one</option>
+          <option value="yes">Yes, English and Spanish</option>
+          <option value="english-only">English only</option>
+          <option value="not-sure">Not sure</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Section 4: Booking -->
+    <div class="section">
+      <div class="section-title">
+        <span class="section-number">4</span>
+        Booking & Scheduling
+      </div>
+      <p class="section-desc">How your customers currently book, and what tools you use.</p>
+
+      <div class="field">
+        <label>How do customers currently book with you?</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="booking_method" value="phone"> Phone call</label>
+          <label><input type="checkbox" name="booking_method" value="website"> Website booking widget</label>
+          <label><input type="checkbox" name="booking_method" value="walk-in"> Walk-in</label>
+          <label><input type="checkbox" name="booking_method" value="social"> Social media / DMs</label>
+          <label><input type="checkbox" name="booking_method" value="other"> Other</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Do you use a scheduling or booking tool?</label>
+        <select name="booking_tool">
+          <option value="" disabled selected>Select one</option>
+          <option value="none">No scheduling tool</option>
+          <option value="calendly">Calendly</option>
+          <option value="cal-com">Cal.com</option>
+          <option value="acuity">Acuity Scheduling</option>
+          <option value="housecall-pro">Housecall Pro</option>
+          <option value="wix">Wix Bookings</option>
+          <option value="square">Square Appointments</option>
+          <option value="mindbody">Mindbody</option>
+          <option value="zenoti">Zenoti</option>
+          <option value="google-calendar">Google Calendar only</option>
+          <option value="other">Other (describe below)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>If "Other," which tool? <span class="optional">(optional)</span></label>
+        <input type="text" name="booking_tool_other" placeholder="Name of the tool you use">
+      </div>
+    </div>
+
+    <!-- Section 5: Phone Setup -->
+    <div class="section">
+      <div class="section-title">
+        <span class="section-number">5</span>
+        Phone Setup
+      </div>
+      <p class="section-desc">We'll set up the AI to work with your existing phone number. These questions help us plan the routing.</p>
+
+      <div class="field">
+        <label>Who is your phone provider?</label>
+        <select name="phone_provider">
+          <option value="" disabled selected>Select one</option>
+          <option value="att">AT&T</option>
+          <option value="verizon">Verizon</option>
+          <option value="tmobile">T-Mobile</option>
+          <option value="spectrum">Spectrum</option>
+          <option value="vonage">Vonage</option>
+          <option value="ringcentral">RingCentral</option>
+          <option value="google-voice">Google Voice</option>
+          <option value="grasshopper">Grasshopper</option>
+          <option value="ooma">Ooma</option>
+          <option value="other">Other</option>
+          <option value="idk">I don't know</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Can you access your phone settings to set up call forwarding?</label>
+        <select name="can_forward">
+          <option value="" disabled selected>Select one</option>
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+          <option value="idk">I don't know</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Do you want to keep your existing business phone number?</label>
+        <select name="keep_number">
+          <option value="" disabled selected>Select one</option>
+          <option value="yes">Yes, keep my current number</option>
+          <option value="open">I'm open to a new number</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Section 6: Domain & Website -->
+    <div class="section">
+      <div class="section-title">
+        <span class="section-number">6</span>
+        Domain & Website Access
+      </div>
+      <p class="section-desc">We may need to add a compliance page to your domain for SMS registration. These questions help us understand your setup. If you're not sure about any of these, that's completely fine -- we'll figure it out together.</p>
+
+      <div class="field">
+        <label>Who hosts your domain? <span class="why">This is where you bought or manage your web address</span></label>
+        <select name="domain_host">
+          <option value="" disabled selected>Select one</option>
+          <option value="godaddy">GoDaddy</option>
+          <option value="namecheap">Namecheap</option>
+          <option value="google-domains">Google Domains</option>
+          <option value="cloudflare">Cloudflare</option>
+          <option value="squarespace">Squarespace</option>
+          <option value="wix">Wix</option>
+          <option value="hostinger">Hostinger</option>
+          <option value="bluehost">Bluehost</option>
+          <option value="other">Other</option>
+          <option value="idk">I don't know</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Do you have login access to your domain registrar? <span class="why">Where you manage DNS or domain settings</span></label>
+        <select name="domain_access">
+          <option value="" disabled selected>Select one</option>
+          <option value="yes">Yes, I can log in</option>
+          <option value="no">No, someone else manages it</option>
+          <option value="idk">I don't know</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Do you have login access to your website admin/dashboard?</label>
+        <select name="website_access">
+          <option value="" disabled selected>Select one</option>
+          <option value="yes">Yes</option>
+          <option value="no">No, someone else manages it</option>
+          <option value="idk">I don't know</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>What platform is your website built on?</label>
+        <select name="website_platform">
+          <option value="" disabled selected>Select one</option>
+          <option value="wordpress">WordPress</option>
+          <option value="wix">Wix</option>
+          <option value="squarespace">Squarespace</option>
+          <option value="shopify">Shopify</option>
+          <option value="webflow">Webflow</option>
+          <option value="custom">Custom built</option>
+          <option value="other">Other</option>
+          <option value="idk">I don't know</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Section 7: SMS Compliance -->
+    <div class="section">
+      <div class="section-title">
+        <span class="section-number">7</span>
+        Text Messaging Setup
+      </div>
+      <p class="section-desc">Your AI receptionist can send texts (booking confirmations, follow-ups, info). US carriers require some compliance steps. We handle the setup -- these questions help us prepare.</p>
+
+      <div class="field">
+        <label>Does your website currently have a privacy policy page?</label>
+        <select name="has_privacy_policy">
+          <option value="" disabled selected>Select one</option>
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+          <option value="not-sure">Not sure</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Does your website currently have a terms of service page?</label>
+        <select name="has_terms">
+          <option value="" disabled selected>Select one</option>
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+          <option value="not-sure">Not sure</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Section 8: Additional Context -->
+    <div class="section">
+      <div class="section-title">
+        <span class="section-number">8</span>
+        Anything Else
+      </div>
+
+      <div class="field">
+        <label>Is there anything specific you want the AI receptionist to know about your business, your customers, or how you handle calls today? <span class="optional">(optional)</span></label>
+        <textarea name="additional_notes" placeholder="Examples: We get a lot of Spanish-speaking callers. Our busiest time is Monday mornings. We need to ask callers if they're a new or returning customer."></textarea>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <input type="hidden" name="_subject" value="New AI Receptionist Onboarding Submission">
+    <input type="hidden" name="_next" value="">
+
+    <button type="submit" class="submit-btn">Submit Setup Information</button>
+    <p class="submit-note">Your information is stored securely. We'll review it and follow up within 1-2 business days to begin your setup.</p>
+
+  </form>
+
+  <div id="thank-you">
+    <h2>We got it!</h2>
+    <p>Thanks for submitting your setup information. Ricardo will review everything and reach out within 1-2 business days to get your AI receptionist built and running.</p>
+    <p style="margin-top: 20px;">Questions in the meantime? Call <a href="tel:+19417774933" style="color: var(--purple);">(941) 777-4933</a></p>
+  </div>
+
+</div>
+
+<script>
+  // Pricing card selection
+  document.querySelectorAll('.pricing-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.pricing-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      card.querySelector('input[type="radio"]').checked = true;
+    });
+  });
+
+  const form = document.getElementById('onboarding-form');
+  const thankYou = document.getElementById('thank-you');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+
+    try {
+      await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      form.style.display = 'none';
+      thankYou.style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (err) {
+      alert('Something went wrong. Please try again or call (941) 777-4933.');
+    }
+  });
+</script>
+
+</body>
+</html>
